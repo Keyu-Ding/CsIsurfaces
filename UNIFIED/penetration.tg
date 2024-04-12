@@ -1,0 +1,14 @@
+// optical properties of CsI
+#include CsI.tg
+// optical properties of SiO2
+
+// default unit of length is mm
+:volu vacuum BOX 1000000 1000000 1000000 G4_Galactic
+:volu CsI BOX 100000 100000 100000 G4_CESIUM_IODIDE
+:rotm r000 0 0 0
+:place CsI 2 vacuum r000 0 0 0
+
+// visual effects
+:color CsI 0.2 0.4 0.8
+:vis vacuum OFF
+

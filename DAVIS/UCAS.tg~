@@ -1,0 +1,49 @@
+// optical properties of CsI
+#include CsI.tg
+// optical properties of SiO2
+#include SiO2.tg
+// optical properties of Teflon
+:prop G4_TEFLON
+  photon_energies 2 2.5*eV 5.0*eV
+  RINDEX 1.5 1.5
+
+//R is the radius of CsI
+//H is the height of CsI
+//T is the thickness of Teflon
+:p R 15 
+:p H 50
+:p T 0.1
+
+// default unit of length is mm
+:volu vacuum TUBE 0 100 100 G4_Galactic
+:volu CsI(S) TUBE 0 $R $H G4_CESIUM_IODIDE
+:volu PTFE TUBE 0 $R $T G4_TEFLON
+:volu Teflon TUBE $R $R+$T $H G4_TEFLON
+:volu PMT TUBE 0. $R+$T 0.5 G4_SILICON_DIOXIDE
+:rotm r000 0 0 0
+:place Teflon 3 vacuum r000 0 0 0
+:place CsI(S) 2 vacuum r000 0 0 0
+:place PMT 1 vacuum r000 0 0 $H+0.5
+:place PTFE 4 vacuum r000 0 0 -($H+$T)
+
+// optical properties of the surface between CsI & Teflon
+:surf CsI2Teflon CsI(S):2 Teflon:3
+  type dielectric_LUTDAVIS
+  model DAVIS
+  //finish PolishedTeflon_LUT
+  finish RoughTeflon_LUT
+
+// optical properties of the surface between CsI & PTFE
+:surf CsI2PTFE CsI(S):2 PTFE:4
+  type dielectric_LUTDAVIS
+  model DAVIS
+  //finish PolishedTeflon_LUT
+  finish RoughTeflon_LUT
+
+// visual effects
+:color CsI(S) 0.2 0.4 0.8
+:color PTFE 0.5 0.5 0.5
+:color Teflon 0.3 0.3 0.3
+:color PMT 0.8 0.4 0.2
+:vis vacuum OFF
+

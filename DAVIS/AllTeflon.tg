@@ -1,0 +1,48 @@
+// optical properties of CsI
+#include CsI.tg
+// optical properties of SiO2
+#include SiO2.tg
+// optical properties of Teflon
+:prop G4_TEFLON
+  photon_energies 2 2.5*eV 5.0*eV
+  RINDEX 1.5 1.5
+
+// default unit of length is mm
+:volu vacuum TUBE 0 40 50 G4_Galactic
+:volu CsI TUBE 0 25.4 5 G4_CESIUM_IODIDE
+:volu PTFE TUBE 0 25.4 0.1 G4_TEFLON
+:volu Teflon TUBE 25.4 25.5 5 G4_TEFLON
+:volu ptfe TUBE 0. 25.4 0.1 G4_TEFLON
+:rotm r000 0 0 0
+:place Teflon 2 vacuum r000 0 0 0
+:place CsI 1 vacuum r000 0 0 0
+:place ptfe 3 vacuum r000 0 0 5.1
+:place PTFE 4 vacuum r000 0 0 -5.1
+
+// optical properties of the surface between CsI & Teflon
+:surf CsI2Teflon CsI:1 Teflon:2
+  type dielectric_LUTDAVIS
+  model DAVIS
+  finish PolishedTeflon_LUT
+  //finish RoughTeflon_LUT
+
+// optical properties of the surface between CsI & PTFE
+:surf CsI2PTFE CsI:1 PTFE:4
+  type dielectric_LUTDAVIS
+  model DAVIS
+  finish PolishedTeflon_LUT
+  //finish RoughTeflon_LUT
+
+:surf CsI2ptfe CsI:1 ptfe:3
+  type dielectric_LUTDAVIS
+  model DAVIS
+  finish PolishedTeflon_LUT
+  //finish RoughTeflon_LUT
+
+// visual effects
+:color CsI 0.2 0.4 0.8
+:color PTFE 0.5 0.5 0.5
+:color Teflon 0.3 0.3 0.3
+:color ptfe 0.8 0.4 0.2
+:vis vacuum OFF
+
