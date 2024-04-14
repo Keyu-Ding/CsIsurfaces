@@ -1,3 +1,4 @@
+//two cuboid shape CsI based on UCAS measurements, one polished, one rough
 // optical properties of CsI
 #include CsI.tg
 // optical properties of SiO2
