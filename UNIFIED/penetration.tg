@@ -1,3 +1,4 @@
+//help understand how absorption length works
 // optical properties of CsI
 #include CsI.tg
 // optical properties of SiO2
